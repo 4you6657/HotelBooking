@@ -625,7 +625,6 @@ onlineRetailCut_dropped = onlineRetailCut.drop(['Description','Country'],axis=1)
 print(onlineRetailCut_dropped)
 print(onlineRetailCut_dropped.isnull().any()) #判断当前数据表中的属性列的个数和缺失值情况.
 #对CustomerID进行数据填充
-#此处选择用CustomerID的中位数填补此列的空缺值
 onlineRetailCut_dropped['CustomerID']=onlineRetailCut_dropped['CustomerID'].fillna(method='ffill')
 print("填充缺失值后表格的情况:")
 print(onlineRetailCut_dropped.isnull().sum())
