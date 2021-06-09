@@ -22,18 +22,6 @@ dataProductionMissingCategory = pd.read_csv('D:\data\production_missing_category
 dataProductionMissingNum = pd.read_csv('D:\data\production_missing_num.csv')
 dataProductionMissingNum4RedShift = pd.read_csv('D:\data\production_missing_num_4_redshift.csv')
 dataReserve = pd.read_csv('D:/data/reserve.csv')
-#检查数据是否导入完成
-#print(dataCustomer)
-#print(dataHolidayMST)
-#print(dataHotel)
-#print(dataMonthMST)
-#print(dataMonthlyIndex)
-#print(dataProduction)
-#print(dataProductionMissingCategory)
-#print(dataProductionMissingNum)
-#print(dataProductionMissingNum4RedShift)
-#print(dataReserve)
-
 #查看数据的前两行
 #print("查看数据的前两行:")
 #print(dataCustomer.head(2))
@@ -46,18 +34,16 @@ dataReserve = pd.read_csv('D:/data/reserve.csv')
 #print("dataCustomer的描述性统计量:")
 #print(dataCustomer.describe())
 
-
 #分界线
 print("--------------------------------------------------")
 #将TRUE和FALSE转化为数字
-a=dataHotel['is_business']
-b=dataHotel['hotel_id']
-c=dataHotel['big_area_name']
-d=dataHotel['small_area_name']
-a=pd.DataFrame(a)
-for u in a.columns:
-    if a[u].dtype==bool:
-        a[u]=a[u].astype('int')
+#a=dataHotel['is_business']
+#b=dataHotel['hotel_id']
+#d=dataHotel['small_area_name']
+#a=pd.DataFrame(a)
+#for u in a.columns:
+#    if a[u].dtype==bool:
+#        a[u]=a[u].astype('int')
 #dataHotel.drop(['is_business','hotel_id','big_area_name','small_area_name'],axis=1,inplace=True)
 #dataHotel.insert(dataHotel.shape[-1],'is_business',a)
 #导出数据
@@ -67,8 +53,8 @@ for u in a.columns:
 #数字化处理
 #1)customer
 #将sex 转化为 0、1
-dataCustomer = dataCustomer.replace("man",1)
-dataCustomer = dataCustomer.replace("woman",0)
+#dataCustomer = dataCustomer.replace("man",1)
+#dataCustomer = dataCustomer.replace("woman",0)
 #print(dataCustomer)
 #dataCustomer.drop(['customer_id'],axis=1,inplace=True)
 #dataCustomer.to_csv('D:\data\customer.csv')
@@ -88,8 +74,8 @@ dataCustomer = dataCustomer.replace("woman",0)
 #dataHolidayMST.drop([holidayday_flg','nextday_is_holiday_flg'],axis=1,inplace=True)
 #dataHolidayMST.insert(dataHolidayMST.shape[-1],'holidayday_flg',f)
 #dataHolidayMST.insert(dataHolidayMST.shape[-1],'nextday_is_holiday_flg',g)
-#rint(dataHolidayMST)
-
+#print(dataHolidayMST)
+print("========================================================================")
 #聚合函数整理数据
 #dataCustomer_id_sex = dataCustomer.groupby(['customer_id','sex']).sum()
 #print(dataCustomer_id_sex)
@@ -184,16 +170,15 @@ dataCustomer = dataCustomer.replace("woman",0)
 ######数据替换#####
 #用pandas的replace方法将sex中的woman/man替换成0/1
 #sexModifiedInt = dataCustomer['sex'].replace(["woman","man"],["0","1"])
-sexModifiedInt = dataCustomer.replace(["woman","man"],["0","1"])
-print("替换后的性别表示为:")
-print(sexModifiedInt)
+#dataCustomer = dataCustomer.replace(["woman","man"],["0","1"])
+#print("替换后的性别表示为:")
+#print(dataCustomer)
 
 #用pandas的replace方法将True\False替换成1/0
-#boolModifiedInt = dataHotel['is_business'].astype('int')#replace(["TRUE","FALSE"],["true","false"])
-#boolModifiedInt = dataHotel['is_business'].replace(["TRUE","FALSE"],["true","false"])
+#boolModifiedInt = dataHotel['is_business'].astype('int')
 #print("替换后的布尔值表示为:")
 #print(boolModifiedInt)
-#production_fault_flg = dataProduction['fault_flg'].replace(["TRUE","FALSE"],["1","0"])
+#production_fault_flg = dataProduction['fault_flg'].astype('int')
 #print(production_fault_flg)
 #分界线
 print("===================================================")
@@ -240,15 +225,6 @@ print("==================================================")
 #print(dataCustomer['sex'].unique())
 #分界线
 print("==================================================")
-
-#######处理日期和时间数据:######
-#print(dataReserve['reserve_datetime'])
-#dataReserve['checkin_date']
-#dataReserve['checkin_time']
-#dataReserve['checkout_date']
-#选择日期和时间
-#dataReserve[(dataReserve['reserve_datetime']>'2002/1/1 01:00:00')&(dataReserve['reserve_datatime']<='2002/1/1 04:00:00')]
-
 
 #分界线
 print("==================================================")
@@ -344,13 +320,6 @@ print("==================================================")
 #print(dataCustomer.groupby('sex').mean()) #对sex列的值进行对行分组,并计算每一组的平均值
 #print(dataCustomer.groupby('sex').sum())
 
-#按照时间段对行进行分组:
-#print(dataReserve['checkin_date'])
-#print("=======================================")
-#print(dataReserve['checkin_date'].head(3))
-#print(dataReserve['checkout_date'].resample('M').sum())
-#print(dataReserve['reserve_datetime']) #每一条记录的日期和时间都是数据帧的索引,这是因为resample要求索引的类型必须是类datetime的值
-#print(dataReserve['reserve_datetime'].resample('M').mean())
 print("=======================================")
 
 #遍历一个列的数据,并且对其进行某种操作.
@@ -358,22 +327,9 @@ print("=======================================")
     #print(name.upper())
     #print(name.lower())
 
-#对一列的所有元素应用某个函数
-#创建一个函数
-#def uppercase(x):
-   # return x.upper()
-#应用函数,查看两行.
-#print(dataCustomer['customer_id'].apply(uppercase)[0:2])
-
-
-
-
-
 #print(dataProductionMissingNum.isnull().any())
 #此时能够找到表格中的确有108个被标记为“None”的属性值,这些值就是NAN值
 #找到空值后,使用该列的均值填充空缺值
-
-
 
 #dataProductionMissingNum_thicknessfill = dataProductionMissingNum_thickness.fillna(thickness_mean,inplace=True)
 #print(dataProductionMissingNum_thicknessfill)
@@ -417,8 +373,8 @@ print("==================================================")
 
 #缺失值的填充(以dataProductionMissingCategory为例)
 #print("填充dataProductionMissingCategory中的缺失值")
-dataProductionMissingCategory['typeModified']=dataProductionMissingNum['type']
-dataProductionMissingCategory.loc[dataProductionMissingNum['type']==None,'typeModified']="B"
+#dataProductionMissingCategory['typeModified']=dataProductionMissingNum['type']
+#dataProductionMissingCategory.loc[dataProductionMissingNum['type']==None,'typeModified']="B"
 #print(dataProductionMissingCategory.isnull())
 print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
 #print(dataProductionMissingCategory.isnull().any())
@@ -427,10 +383,10 @@ print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
 print("--------------------------------------------------")
 #填充空缺值的方法:pandas中的fillna()方法
 #print("用fillna()方法填充缺失值")
-dataProductionMissingCategory_type = dataProductionMissingCategory.iloc[:,[0]]
-dataProductionMissingCategory_type_mean = np.mean(dataProductionMissingCategory_type)
+#dataProductionMissingCategory_type = dataProductionMissingCategory.iloc[:,[0]]
+#dataProductionMissingCategory_type_mean = np.mean(dataProductionMissingCategory_type)
 #print(dataProductionMissingCategory_type)
-filler = dataProductionMissingCategory_type.fillna('B')
+#filler = dataProductionMissingCategory_type.fillna('B')
 #print(filler)
 #数据表合并
 #df3 = pd.merge(df1,df2,how='inner'\'left'\'right'\'outer')
@@ -440,30 +396,30 @@ filler = dataProductionMissingCategory_type.fillna('B')
 #异常值的识别
 #一、酒店数据
 #1）酒店数据(dataHotel)
-datahotel_baseprice = dataHotel.iloc[:,[1]]
-datahotel_hotel_latitude = dataHotel.iloc[:,[4]]
-datahotel_hotel_longitude = dataHotel.iloc[:,[5]]
+#datahotel_baseprice = dataHotel.iloc[:,[1]]
+#datahotel_hotel_latitude = dataHotel.iloc[:,[4]]
+#datahotel_hotel_longitude = dataHotel.iloc[:,[5]]
 #print(datahotel_baseprice.describe())
 print("---------------------------------")
 #print(datahotel_hotel_latitude.describe())
 print("---------------------------------")
 #print(datahotel_hotel_longitude.describe())
 #2) 顾客数据(dataCustomer)
-dataCustomer_age = dataCustomer.iloc[:,[1]]
-dataCustomer_home_latitude = dataCustomer.iloc[:,[3]]
-dataCustomer_home_longitude = dataCustomer.iloc[:,[4]]
+#dataCustomer_age = dataCustomer.iloc[:,[1]]
+#dataCustomer_home_latitude = dataCustomer.iloc[:,[3]]
+#dataCustomer_home_longitude = dataCustomer.iloc[:,[4]]
 #print(dataCustomer_age.describe())
 print("---------------------------------")
 #print(dataCustomer_home_latitude.describe())
 print("---------------------------------")
 #print(dataCustomer_home_longitude.describe())
 #3)预订数据(dataReserve)
-dataReserve_datetime = dataReserve.iloc[:,[3]]
-dataReserve_checkindate = dataReserve.iloc[:,[4]]
-dataReserve_checkintime = dataReserve.iloc[:,[5]]
-dataReserve_checkoutdate = dataReserve.iloc[:,[6]]
-dataReserve_peoplenum = dataReserve.iloc[:,[7]]
-dataReserve_totalprice = dataReserve.iloc[:,[8]]
+#dataReserve_datetime = dataReserve.iloc[:,[3]]
+#dataReserve_checkindate = dataReserve.iloc[:,[4]]
+#dataReserve_checkintime = dataReserve.iloc[:,[5]]
+#dataReserve_checkoutdate = dataReserve.iloc[:,[6]]
+#dataReserve_peoplenum = dataReserve.iloc[:,[7]]
+#dataReserve_totalprice = dataReserve.iloc[:,[8]]
 #print(dataReserve_datetime.describe())
 #print("---------------------------------")
 #print(dataReserve_checkindate.describe())
@@ -482,15 +438,17 @@ dataReserve_totalprice = dataReserve.iloc[:,[8]]
 #清除异常点后的数据集
 #cleanedCustomerData = dataCustomer[abs(dataCustomer-np.mean(dataCustomer))/np.std(dataCustomer)<3].reset_index()
 #cleanedReserveData = dataReserve[abs(dataReserve-np.mean(dataReserve))/np.std(dataReserve)<3].reset_index()
-cleanedReserveData = dataReserve[abs(dataReserve['total_price']-np.mean(dataReserve['total_price']))/np.std(dataReserve['total_price'])<3].reset_index()
-cleanedHotelData = dataHotel[abs(dataHotel['base_price']-np.mean(dataHotel['base_price']))/np.std(dataHotel['base_price'])<3].reset_index()
-cleanedMonthlyIndexData = dataMonthlyIndex[abs(dataMonthlyIndex-np.mean(dataMonthlyIndex))/np.std(dataMonthlyIndex)<3].reset_index()
+#cleanedReserveData = dataReserve[abs(dataReserve['total_price']-np.mean(dataReserve['total_price']))/np.std(dataReserve['total_price'])<3].reset_index()
+#cleanedHotelData = dataHotel[abs(dataHotel['base_price']-np.mean(dataHotel['base_price']))/np.std(dataHotel['base_price'])<3].reset_index()
+#cleanedMonthlyIndexData = dataMonthlyIndex[abs(dataMonthlyIndex-np.mean(dataMonthlyIndex))/np.std(dataMonthlyIndex)<3].reset_index()
 #print("清除异常点后的数据集为:")
 #print(cleanedReserveData)
-print("清洗后的cleanedReserveData输出结果为:")
-print(cleanedReserveData)
-print("清洗后的clleanMonthlyIndexData输出结果为:")
-print(cleanedMonthlyIndexData)
+#print("清洗后的cleanedReserveData输出结果为:")
+#print(cleanedReserveData)
+#print("清洗后的clleanMonthlyIndexData输出结果为:")
+#print(cleanedMonthlyIndexData)
+#print("对原始数据进行describe()操作")
+#print(dataMonthlyIndex.describe())
 #print(cleanedHotelData)
 #print(cleanedCustomerData)
 #print(cleanedHotelData['base_price'].head(50))
@@ -531,13 +489,14 @@ def Z_ScoreNormalize(data):
     return data
 #对清理异常值后的数据进行零标准化
 #normalize_totalprice = Z_ScoreNormalize(cleanedReserveData['total_price'])
-temp3 = Z_ScoreNormalize(cleanedMonthlyIndexData)
-print("零均质化后的MonthlyIndexData:")
-print(temp3)
-newMonthlyIndex = temp3
-newMonthlyIndex['year_month'] = dataMonthlyIndex['year_month']
-print("清洗、整合标准化后的MonthlyIndex数据:")
-print(newMonthlyIndex)
+#temp3 = Z_ScoreNormalize(cleanedMonthlyIndexData)
+#print("零均质化后的MonthlyIndexData:")
+#print(temp3)
+#newMonthlyIndex = temp3
+#newMonthlyIndex['year_month'] = dataMonthlyIndex['year_month']
+#print("清洗、整合标准化后的MonthlyIndex数据:")
+#print(newMonthlyIndex)
+#print(newMonthlyIndex.describe())
 #temp2=Z_ScoreNormalize(cleanedReserveData)
 #print("零均值化后的ReserveData:")
 #print(temp2)
@@ -555,14 +514,14 @@ print(newMonthlyIndex)
 #normalize_baseprice = Z_ScoreNormalize(cleanedHotelData['base_price'])
 #normalize_latitude = Z_ScoreNormalize(cleanedHotelData['hotel_latitude'])
 #normalize_longitude = Z_ScoreNormalize(cleanedHotelData['hotel_latitude'])
-temp=Z_ScoreNormalize(cleanedHotelData)
+#temp=Z_ScoreNormalize(cleanedHotelData)
 #print(normalizeHotelData)
-newHotel = temp
-newHotel['big_area_name'] = cleanedHotelData['big_area_name']
-newHotel['hotel_id'] = cleanedHotelData['hotel_id']
-newHotel['small_area_name'] = cleanedHotelData['small_area_name']
-print("清洗标准化后的Hotel数据:")
-print(newHotel)
+#newHotel = temp
+#newHotel['big_area_name'] = cleanedHotelData['big_area_name']
+#newHotel['hotel_id'] = cleanedHotelData['hotel_id']
+#newHotel['small_area_name'] = cleanedHotelData['small_area_name']
+#print("清洗标准化后的Hotel数据:")
+#print(newHotel)
 
 #print(normalize_latitude)
 #print(normalize_baseprice)
@@ -570,22 +529,9 @@ print(newHotel)
 #(normalize_baseprice)
 #分界线
 print("======================================================")
-#属性字段的规整化(将一些属性列中的非数值型数据转化为数值型数据)
 
 #分界线
 print("======================================================")
-
-#将特征离散化
-#创建特征
-#age = np.array(dataCustomer['age'])
-#print(age)
-#创建二值化器
-#binarizer = Binarizer(18)
-#转换特征
-#binarizer.fit_transform(age)
-#print(binarizer.fit_transform(age))
-#2)根据多个阈值将数值型特征离散化:
-#print(np.digitize(age,bins=[20,30,64])) #bins参数中的每个数字表示的是每个区间的左边界(左闭右开)
 #分界线
 print("======================================================")
 
@@ -625,24 +571,24 @@ print("======================================================")
 #scaler = preprocessing.StandardScaler()
 #data = cleanedReserveData.loc[:,['people_num','total_price']]
 
-data2 = newHotel.loc[:,['base_price','hotel_latitude','hotel_longitude']]
-print(data2)
-pca = PCA(n_components=0.85,whiten=True)
-data3 = newMonthlyIndex.loc[:,['sales_amount','customer_number']]
-print("data3:")
-print(data3)
-data3_pca = pca.fit_transform(data3)
-print("data3_pca:")
-print(data3_pca)
-plt.plot(data3_pca,"r*")
-plt.show()
+#data2 = newHotel.loc[:,['base_price','hotel_latitude','hotel_longitude']]
+#print(data2)
+#pca = PCA(n_components=0.85,whiten=True)
+#data3 = newMonthlyIndex.loc[:,['sales_amount','customer_number']]
+#print("data3:")
+#print(data3)
+#data3_pca = pca.fit_transform(data3)
+#print("data3_pca:")
+#print(data3_pca)
+#plt.plot(data3_pca,"g*")
+#plt.show()
 
 
 #print(cleanedHotelData.loc[:,['base_price','hotel_latitude','hotel_longitude']])
 #print(data)
 pca = PCA(n_components=0.85,whiten=True)
 #data_pca = pca.fit_transform(data)
-data2_pca = pca.fit_transform(data2)
+#data2_pca = pca.fit_transform(data2)
 #print(data_pca)
 #print(data.shape[1])
 #(data_pca.shape[1])
@@ -657,48 +603,64 @@ data2_pca = pca.fit_transform(data2)
 #plt.plot(data2_pca,'k*')
 #plt.show()
 
-
 #自定义数据集
-#Review = pd.read_csv('')
+#数据提取
+onlineRetail = pd.read_csv('D:\data\online_retail.csv')
+#print(onlineRetail)
+#由于数据集中每列属性值的数据过于庞大,一台笔记本取出异常值的过程耗时太长,因此选择截取前5000行数据作为检测样本.
+onlineRetailCut = onlineRetail.head(5000)
+#对检测样本进行粗略的describe()分析
+#print("对样本进行粗略分析:")  #观察数据概况、包括数据的标准差、离散情况等等.
+#print(onlineRetailCut.describe())
+#数据列的提取
+#stockCode = onlineRetailCut['StockCode']
+#stockCode = onlineRetailCut.iloc[:,[1]]
+#print(stockCode)
+#缺失值的检查
+print("检测样本内是否含有空缺值:")
+print(onlineRetailCut.isnull().sum())
+#通过对样本进行粗略分析,得出样本数据中"Description","CustomerID"属性列中有空值存在.
+#由于Description和Country不是我们要分析的重点,因此将其剔除.
+onlineRetailCut_dropped = onlineRetailCut.drop(['Description','Country'],axis=1)
+print(onlineRetailCut_dropped)
+print(onlineRetailCut_dropped.isnull().any()) #判断当前数据表中的属性列的个数和缺失值情况.
+#对CustomerID进行数据填充
+#此处选择用CustomerID的中位数填补此列的空缺值
+onlineRetailCut_dropped['CustomerID']=onlineRetailCut_dropped['CustomerID'].fillna(method='ffill')
+print("填充缺失值后表格的情况:")
+print(onlineRetailCut_dropped.isnull().sum())
+print(onlineRetailCut_dropped.isnull().any())
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+#删除异常值,得到去除异常值后的表格
+#cleanedCustomerData = dataCustomer[abs(dataCustomer-np.mean(dataCustomer))/np.std(dataCustomer)<3].reset_index()
+cleanedOnlineRetail_dropped = onlineRetailCut_dropped[abs(onlineRetailCut_dropped-np.mean(onlineRetailCut_dropped))/np.std(onlineRetailCut_dropped)<3].reset_index()
+temp4 = Z_ScoreNormalize(cleanedOnlineRetail_dropped)
+#print(temp4)
+newCleanedOnlineRetail_dropped = temp4
+print(newCleanedOnlineRetail_dropped)
+newCleanedOnlineRetail_dropped['InvoiceNo'] = onlineRetail['InvoiceNo']
+newCleanedOnlineRetail_dropped['StockCode'] = onlineRetail['StockCode']
+newCleanedOnlineRetail_dropped['InvoiceDate'] = onlineRetail['InvoiceDate']
+print(newCleanedOnlineRetail_dropped)
+print(newCleanedOnlineRetail_dropped.isnull().sum()) #判断标准化、归一化后的表格中是否有空数据.
+#通过判断得知:Quantity和UnitPrice属性列中存在空数据
+#接下来对空缺数据进行填充
+#onlineRetailCut_dropped['CustomerID']=onlineRetailCut_dropped['CustomerID'].fillna(method='ffill')
+newCleanedOnlineRetail_dropped['Quantity']=newCleanedOnlineRetail_dropped['Quantity'].fillna(method='bfill')
+newCleanedOnlineRetail_dropped['UnitPrice']=newCleanedOnlineRetail_dropped['UnitPrice'].fillna(method='ffill')
+print("填充缺失值后表格的情况:")
+print(newCleanedOnlineRetail_dropped.isnull().sum())
+#PCA降维
+pca = PCA(n_components=2,whiten=True)
+#data = cleanedReserveData.loc[:,['people_num','total_price']]
+data4 = newCleanedOnlineRetail_dropped.loc[:,['index','UnitPrice','CustomerID']]
+#print(data4)
+data4_pca = pca.fit_transform(data4)
+#plt.plot(data4,"r*")
+plt.plot(data4_pca,"b*")
+plt.show()
+print(data4.shape[1])
+print(data4_pca.shape[1])
 
 
 
