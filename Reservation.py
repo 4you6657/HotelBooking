@@ -184,15 +184,17 @@ dataCustomer = dataCustomer.replace("woman",0)
 ######数据替换#####
 #用pandas的replace方法将sex中的woman/man替换成0/1
 #sexModifiedInt = dataCustomer['sex'].replace(["woman","man"],["0","1"])
-#print("替换后的性别表示为:")
-#print(sexModifiedInt)
+sexModifiedInt = dataCustomer.replace(["woman","man"],["0","1"])
+print("替换后的性别表示为:")
+print(sexModifiedInt)
 
 #用pandas的replace方法将True\False替换成1/0
-######boolModifiedInt = dataHotel['is_business'].replace(["TRUE","FALSE"],["1","0"])
-######print("替换后的布尔值表示为:")
-######print(boolModifiedInt)
-######production_fault_flg = dataProduction['fault_flg'].replace(["TRUE","FALSE"],["1","0"])
-######print(production_fault_flg)
+#boolModifiedInt = dataHotel['is_business'].astype('int')#replace(["TRUE","FALSE"],["true","false"])
+#boolModifiedInt = dataHotel['is_business'].replace(["TRUE","FALSE"],["true","false"])
+#print("替换后的布尔值表示为:")
+#print(boolModifiedInt)
+#production_fault_flg = dataProduction['fault_flg'].replace(["TRUE","FALSE"],["1","0"])
+#print(production_fault_flg)
 #分界线
 print("===================================================")
 #rename 方法重命名列,只查看两行数据:
@@ -240,10 +242,10 @@ print("==================================================")
 print("==================================================")
 
 #######处理日期和时间数据:######
-print(dataReserve['reserve_datetime'])
-dataReserve['checkin_date']
-dataReserve['checkin_time']
-dataReserve['checkout_date']
+#print(dataReserve['reserve_datetime'])
+#dataReserve['checkin_date']
+#dataReserve['checkin_time']
+#dataReserve['checkout_date']
 #选择日期和时间
 #dataReserve[(dataReserve['reserve_datetime']>'2002/1/1 01:00:00')&(dataReserve['reserve_datatime']<='2002/1/1 04:00:00')]
 
@@ -358,8 +360,8 @@ print("=======================================")
 
 #对一列的所有元素应用某个函数
 #创建一个函数
-def uppercase(x):
-    return x.upper()
+#def uppercase(x):
+   # return x.upper()
 #应用函数,查看两行.
 #print(dataCustomer['customer_id'].apply(uppercase)[0:2])
 
@@ -387,7 +389,7 @@ print("--------------------------------------------------")
 print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
 #print(dataReserve.isnull().any())
 print("--------------------------------------------------")
-print("dataProduction")
+#print("dataProduction")
 #print(dataProduction.isnull().sum())
 print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
 #print(dataProduction.isnull().any())
@@ -478,11 +480,19 @@ dataReserve_totalprice = dataReserve.iloc[:,[8]]
 #print(outliersTotalPrice)
 
 #清除异常点后的数据集
+#cleanedCustomerData = dataCustomer[abs(dataCustomer-np.mean(dataCustomer))/np.std(dataCustomer)<3].reset_index()
+#cleanedReserveData = dataReserve[abs(dataReserve-np.mean(dataReserve))/np.std(dataReserve)<3].reset_index()
 cleanedReserveData = dataReserve[abs(dataReserve['total_price']-np.mean(dataReserve['total_price']))/np.std(dataReserve['total_price'])<3].reset_index()
 cleanedHotelData = dataHotel[abs(dataHotel['base_price']-np.mean(dataHotel['base_price']))/np.std(dataHotel['base_price'])<3].reset_index()
+cleanedMonthlyIndexData = dataMonthlyIndex[abs(dataMonthlyIndex-np.mean(dataMonthlyIndex))/np.std(dataMonthlyIndex)<3].reset_index()
 #print("清除异常点后的数据集为:")
 #print(cleanedReserveData)
-print(cleanedHotelData)
+print("清洗后的cleanedReserveData输出结果为:")
+print(cleanedReserveData)
+print("清洗后的clleanMonthlyIndexData输出结果为:")
+print(cleanedMonthlyIndexData)
+#print(cleanedHotelData)
+#print(cleanedCustomerData)
 #print(cleanedHotelData['base_price'].head(50))
 
 #outliersBasePrice = dataHotel[abs(dataHotel['base_price']-np.mean(dataHotel['base_price']))/np.std(dataHotel['base_price'])>=3].reset_index()
@@ -496,32 +506,21 @@ print(cleanedHotelData)
 print("======================================================")
 
 #特征值标准化\归一化:对某个特征进行转换,使其平均值为0,标准差为1.
-#通用步骤:
-#创建特征:
-#x = np.array()
-#print(x)
-#创建缩放器
-#scaler = preprocessing.StandardScaler()
-#转换特征
-#standardized = scaler.fit_transform(x)
-#查看特征
-#print(standardized)
-
 #1)最大最小标准化:
 #获取各个指标的最大值和最小值
 #hotel_baseprice
-basePriceMax = np.max(datahotel_baseprice)
-basePriceMin = np.min(datahotel_baseprice)
+#basePriceMax = np.max(datahotel_baseprice)
+#basePriceMin = np.min(datahotel_baseprice)
 #print(basePriceMax)
 #print(basePriceMin)
-datahotel_baseprice = (datahotel_baseprice-basePriceMin)/(basePriceMax-basePriceMin)
+#datahotel_baseprice = (datahotel_baseprice-basePriceMin)/(basePriceMax-basePriceMin)
 #print(datahotel_baseprice)
 #reserve_totalprice
-totalPriceMax = np.max(dataReserve_totalprice)
-totalPriceMin = np.min(dataReserve_totalprice)
+#totalPriceMax = np.max(dataReserve_totalprice)
+#totalPriceMin = np.min(dataReserve_totalprice)
 #print(totalPriceMax)
 #print(totalPriceMin)
-dataReserve_totalprice = (dataReserve_totalprice-totalPriceMin)/(totalPriceMax-totalPriceMin)
+#dataReserve_totalprice = (dataReserve_totalprice-totalPriceMin)/(totalPriceMax-totalPriceMin)
 #print(dataReserve_totalprice)
 
 #2)零均值标准化
@@ -531,18 +530,38 @@ def Z_ScoreNormalize(data):
     data = (data - data_mean)/data_std
     return data
 #对清理异常值后的数据进行零标准化
-normalize_totalprice = Z_ScoreNormalize(cleanedReserveData['total_price'])
+#normalize_totalprice = Z_ScoreNormalize(cleanedReserveData['total_price'])
+temp3 = Z_ScoreNormalize(cleanedMonthlyIndexData)
+print("零均质化后的MonthlyIndexData:")
+print(temp3)
+newMonthlyIndex = temp3
+newMonthlyIndex['year_month'] = dataMonthlyIndex['year_month']
+print("清洗、整合标准化后的MonthlyIndex数据:")
+print(newMonthlyIndex)
+#temp2=Z_ScoreNormalize(cleanedReserveData)
+#print("零均值化后的ReserveData:")
+#print(temp2)
+#newReserve = temp2
+#newReserve['reserve_id'] = cleanedReserveData['reserve_id']
+#newReserve['hotel_id'] = cleanedReserveData['hotel_id']
+#newReserve['customer_id'] = cleanedReserveData['customer_id']
+#newReserve['reserve_datetime'] = cleanedReserveData['reserve_datetime']
+#newReserve['checkin_date'] = cleanedReserveData['checkin_date']
+#newReserve['checkin_time'] = cleanedReserveData['checkin_time']
+#newReserve['checkout_date'] = cleanedReserveData['checkout_date']
+#print("清洗标准化后的Reserve数据:")
+#print(newReserve)
 #print(normalize_totalprice)
 #normalize_baseprice = Z_ScoreNormalize(cleanedHotelData['base_price'])
 #normalize_latitude = Z_ScoreNormalize(cleanedHotelData['hotel_latitude'])
 #normalize_longitude = Z_ScoreNormalize(cleanedHotelData['hotel_latitude'])
-t = Z_ScoreNormalize(cleanedHotelData)
+temp=Z_ScoreNormalize(cleanedHotelData)
 #print(normalizeHotelData)
-newHotel = t
+newHotel = temp
 newHotel['big_area_name'] = cleanedHotelData['big_area_name']
 newHotel['hotel_id'] = cleanedHotelData['hotel_id']
 newHotel['small_area_name'] = cleanedHotelData['small_area_name']
-print("清洗标准化后的数据:")
+print("清洗标准化后的Hotel数据:")
 print(newHotel)
 
 #print(normalize_latitude)
@@ -572,7 +591,7 @@ print("======================================================")
 
 #两个字段之间的相关性分析
 #print("相关性分析")
-relevance = dataReserve['people_num'].corr(dataReserve['total_price']) #相关系数在-1到1之间,接近1为正相关,接近-1为负相关,0为不相关
+#relevance = dataReserve['people_num'].corr(dataReserve['total_price']) #相关系数在-1到1之间,接近1为正相关,接近-1为负相关,0为不相关
 #print(relevance)
 #通过相关性分析得出:顾客的数量与酒店的总收益之间具有一定的相关性
 #将顾客数量和九点总收益进行数据可视化,分析其关联
@@ -580,33 +599,6 @@ relevance = dataReserve['people_num'].corr(dataReserve['total_price']) #相关�
 #peoplenum = dataReserve_peoplenum
 #totalprice = dataReserve_totalprice
 #plt.scatter(peoplenum,totalprice,marker='.')
-#plt.show()
-
-#数据可视化
-#1)dataHolidayMST
-#x= dataHolidayMST['target_day']
-#y=dataHolidayMST['nextday_is_holiday_flg']
-#z=dataHolidayMST['holidayday_flg']
-#plt.plot(x,x,Label = 'target_day')
-#plt.plot(x,y,Label = 'nextday_is_holiday_flg')
-#plt.plot(x,z,Label = 'holidayday_flg')
-#plt.xlabel('x label')
-#plt.ylabel('y label')
-#plt.title("dataHolidayMST")
-#plt.show()
-
-#2)dataCustomer
-#x = dataCustomer['age']
-#y = dataCustomer['sex']
-#z = dataCustomer['home_latitude']
-#o = dataCustomer['customer_id']
-#plt.plot(x,x, Label='linear')
-#plt.plot(x,y, Label='quadratic')
-#plt.plot(x,z, Label='cubic')
-#plt.plot(x,o, Label='cuid')
-#plt.xlabel('x label')
-#plt.ylabel('y label')
-#plt.title("dataCustomer")
 #plt.show()
 
 #使用主成分进行特征降维
@@ -632,8 +624,20 @@ relevance = dataReserve['people_num'].corr(dataReserve['total_price']) #相关�
 
 #scaler = preprocessing.StandardScaler()
 #data = cleanedReserveData.loc[:,['people_num','total_price']]
+
 data2 = newHotel.loc[:,['base_price','hotel_latitude','hotel_longitude']]
 print(data2)
+pca = PCA(n_components=0.85,whiten=True)
+data3 = newMonthlyIndex.loc[:,['sales_amount','customer_number']]
+print("data3:")
+print(data3)
+data3_pca = pca.fit_transform(data3)
+print("data3_pca:")
+print(data3_pca)
+plt.plot(data3_pca,"r*")
+plt.show()
+
+
 #print(cleanedHotelData.loc[:,['base_price','hotel_latitude','hotel_longitude']])
 #print(data)
 pca = PCA(n_components=0.85,whiten=True)
@@ -641,17 +645,17 @@ pca = PCA(n_components=0.85,whiten=True)
 data2_pca = pca.fit_transform(data2)
 #print(data_pca)
 #print(data.shape[1])
-#print(data_pca.shape[1])
+#(data_pca.shape[1])
 
-print(data2_pca)
-print(data2.shape[1])
-print(data2_pca.shape[1])
+#print(data2_pca)
+#print(data2.shape[1])
+#print(data2_pca.shape[1])
 
 #可视化
-plt.plot(data2,"k*")
-plt.show()
-plt.plot(data2_pca,'k*')
-plt.show()
+#plt.plot(data2,"k*")
+#plt.show()
+#plt.plot(data2_pca,'k*')
+#plt.show()
 
 
 #自定义数据集
